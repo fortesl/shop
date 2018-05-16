@@ -1,0 +1,17 @@
+@import "../sass/_colors-and-sizes";
+
+.mat-button {
+  left: $xlarge-size;
+  top: $small-size;
+}
+
+.arrow-drop-down {
+  left: $medium-size;
+}
+.active-nav-link {
+  background-color: $active-link-color;
+}
+
+.hide {
+  display: none;
+}

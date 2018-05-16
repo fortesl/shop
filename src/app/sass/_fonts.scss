@@ -1,0 +1,14 @@
+body {
+  font-family: Helvetica, Arial, sans-serif; //Helvetica. Fall back to Arial or sans-serif.
+  font-size: 1.6rem; // 16px browser default
+}
+
+// Use em instead of pixels for better accessibility support.
+// em is recommended by W3C.
+// calculate from pixels to em using this formula: pixels/16=em
+// Browser default paragraph text font size is 16px or 1em (100%)
+//Specifying the font-size in percent and em displays the same size in all major browsers, and allows all browsers to resize the text!
+
+html {
+  font-size: 62.5%; // set 1em = 10px. use base 10 values for ems.
+}
