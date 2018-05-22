@@ -7,16 +7,14 @@ export class ProductService {
   constructor() { }
 
   private _products: Product[];
-  private _currentProduct: Product;
+  private _productsDbName = '/products/';
 
   loadProducts() {
     this._products = [];
     for (let i = 1; i <= 100; i++) { this.products.push(createNewProduct(i)); }
-    this._currentProduct = undefined;
   }
 
   get products(): Product[] {
-    this._currentProduct = undefined;
     return this._products;
   }
 
@@ -25,23 +23,13 @@ export class ProductService {
       this.loadProducts();
     }
     const idx = this._products.findIndex(item => item.id === id);
-    this._currentProduct = this._products[idx];
-    return this._currentProduct;
-  }
-
-  get currentProduct(): Product {
-    return this._currentProduct;
-  }
-
-  set currentProduct(product: Product) {
-    this._currentProduct = product;
+    return this._products[idx];
   }
 
   addProduct(product: Product): Product {
     if (product) {
       product.id = (this._products.length + 1).toString();
       this._products.unshift(product);
-      this._currentProduct = product;
       return product;
     }
   }
@@ -50,14 +38,12 @@ export class ProductService {
     const idx = this._products.findIndex(item => item.id === product.id);
     this._products.unshift(product);
     this._products.splice(idx + 1, 1);
-    this._currentProduct = product;
     return product;
   }
 
   deleteProduct(id: string) {
     const idx = this._products.findIndex(item => item.id === id);
     this._products.splice(idx, 1);
-    this._currentProduct = undefined;
   }
 
 }

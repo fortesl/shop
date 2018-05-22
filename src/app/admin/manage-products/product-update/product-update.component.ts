@@ -6,11 +6,11 @@ import { CurrencyPipe } from '@angular/common';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-product-add',
-  templateUrl: './product-add.component.html',
-  styleUrls: ['./product-add.component.scss']
+  selector: 'app-product-update',
+  templateUrl: './product-update.component.html',
+  styleUrls: ['./product-update.component.scss']
 })
-export class ProductAddComponent implements OnInit {
+export class ProductUpdateComponent implements OnInit {
 
   constructor(private builder: FormBuilder,
     private currency: CurrencyPipe,

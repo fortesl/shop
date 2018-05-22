@@ -28,7 +28,7 @@ import { UserService } from './common/services/user.service';
 import { AdminAuthGuard } from './router/admin-auth-guard';
 import { CurrentRouteService } from './common/services/current-route.service';
 import { ProductDetailsComponent } from './product-details/product-details.component';
-import { ProductAddComponent } from './admin/manage-products/product-add/product-add.component';
+import { ProductUpdateComponent } from './admin/manage-products/product-update/product-update.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductService } from './common/services/product.service';
@@ -49,7 +49,7 @@ import { CurrencyPipe } from '@angular/common';
     CheckoutComponent,
     NotAuthorizedComponent,
     ProductDetailsComponent,
-    ProductAddComponent,
+    ProductUpdateComponent,
     ProductListComponent
   ],
   imports: [

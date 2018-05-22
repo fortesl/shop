@@ -11,6 +11,8 @@ export class UserService {
 
   constructor(private db: AngularFireDatabase, private auth: AuthService ) { }
 
+  private _userDbName = '/users/';
+
   save(user: firebase.User) {
     const appUser: LoggedInUser = {
       name: user.displayName,
@@ -23,11 +25,11 @@ export class UserService {
         appUser.roles = x.roles;
       }
       this.auth.setLoggedInUser(appUser);
-      this.db.object('/users/' + user.uid).update(appUser);
+      this.db.object(this._userDbName + user.uid).update(appUser);
     });
   }
 
   get(uid: string): Observable<LoggedInUser> {
-    return this.db.object('/users/' + uid).valueChanges() as Observable<LoggedInUser>;
+    return this.db.object(this._userDbName + uid).valueChanges() as Observable<LoggedInUser>;
   }
 }

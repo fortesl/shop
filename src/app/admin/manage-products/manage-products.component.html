@@ -14,5 +14,5 @@
   <app-product-list  (update)="setDisplayMode($event)"></app-product-list>
 </ng-template>
 <div class="details-mode" *ngIf="displayMode.mode; else listMode">
-  <app-product-add [displayMode]="displayMode" (update)="setDisplayMode()"></app-product-add>
+  <app-product-update [displayMode]="displayMode" (update)="setDisplayMode()"></app-product-update>
 </div>
