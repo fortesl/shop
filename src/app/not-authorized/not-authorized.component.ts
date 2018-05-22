@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CurrentRouteService } from '../common/services/current-route.service';
 
 @Component({
   selector: 'app-not-authorized',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotAuthorizedComponent implements OnInit {
 
-  constructor() { }
+  constructor(currentRoute: CurrentRouteService) {
+    currentRoute.url = location.pathname;
+  }
 
   ngOnInit() {
   }

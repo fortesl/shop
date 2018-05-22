@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ShopMaterialModule } from './common/shop-material/shop-material.module';
-import { RouterModule } from '@angular/router';
+import { RouterModule, RouterStateSnapshot } from '@angular/router';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -26,6 +26,13 @@ import { AuthGuard } from './router/auth-guard';
 import { NotAuthorizedComponent } from './not-authorized/not-authorized.component';
 import { UserService } from './common/services/user.service';
 import { AdminAuthGuard } from './router/admin-auth-guard';
+import { CurrentRouteService } from './common/services/current-route.service';
+import { ProductDetailsComponent } from './product-details/product-details.component';
+import { ProductAddComponent } from './admin/manage-products/product-add/product-add.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ProductListComponent } from './product-list/product-list.component';
+import { ProductService } from './common/services/product.service';
+import { CurrencyPipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -40,7 +47,10 @@ import { AdminAuthGuard } from './router/admin-auth-guard';
     ProductsComponent,
     LoginComponent,
     CheckoutComponent,
-    NotAuthorizedComponent
+    NotAuthorizedComponent,
+    ProductDetailsComponent,
+    ProductAddComponent,
+    ProductListComponent
   ],
   imports: [
     BrowserModule,
@@ -49,14 +59,19 @@ import { AdminAuthGuard } from './router/admin-auth-guard';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     { provide: ErrorHandler, useClass: AppErrorHandler},
     AuthService,
     AuthGuard,
     UserService,
-    AdminAuthGuard
+    AdminAuthGuard,
+    CurrentRouteService,
+    ProductService,
+    CurrencyPipe
   ],
   bootstrap: [AppComponent]
 })

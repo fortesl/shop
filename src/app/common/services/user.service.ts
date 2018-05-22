@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
 import * as firebase from 'firebase';
 import { AuthService } from './auth.service';
-import { LoggedInUser } from '../models/logged-in-user';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import { LoggedInUser } from '../../models/logged-in-user';
 
 @Injectable()
 export class UserService {

@@ -5,7 +5,6 @@ import { AuthService } from '../common/services/auth.service';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/map';
 import { UserService } from '../common/services/user.service';
-import { LoggedInUser } from '../common/models/logged-in-user';
 
 @Injectable()
 export class AdminAuthGuard implements CanActivate {

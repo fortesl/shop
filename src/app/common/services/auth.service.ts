@@ -4,7 +4,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { Router, ActivatedRoute } from '@angular/router';
-import { LoggedInUser } from '../models/logged-in-user';
+import { LoggedInUser } from '../../models/logged-in-user';
 
 @Injectable()
 export class AuthService {
@@ -35,7 +35,14 @@ export class AuthService {
   }
 
   logout(): Promise<any> {
-    return this.afAuth.auth.signOut();
+    return this.afAuth.auth.signOut()
+      .then(() => {
+        this._loggedInUser = {
+          name: '',
+          email: '',
+          roles: []
+          };
+      });
   }
 
 }

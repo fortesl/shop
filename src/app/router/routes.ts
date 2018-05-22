@@ -11,12 +11,15 @@ import { AuthGuard } from './auth-guard';
 import { Route } from '@angular/router';
 import { NotAuthorizedComponent } from '../not-authorized/not-authorized.component';
 import { AdminAuthGuard } from './admin-auth-guard';
+import { ProductDetailsComponent } from '../product-details/product-details.component';
+import { ProductListComponent } from '../product-list/product-list.component';
 
 export const routes: Route[] = [
   { path: '',  redirectTo: 'home', pathMatch: 'full' },
   {path: 'home', component: HomeComponent},
   { path: 'cart', component: ShoppingCartComponent },
-  { path: 'products', component: ProductsComponent },
+  { path: 'products', component: ProductListComponent },
+  { path: 'products/:id', component: ProductDetailsComponent },
   { path: 'login', component: LoginComponent },
   { path: 'not-authorized', component: NotAuthorizedComponent},
   { path: 'orders', component: MyOrdersComponent, canActivate: [AuthGuard, AdminAuthGuard] },

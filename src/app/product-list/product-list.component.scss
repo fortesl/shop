@@ -1,0 +1,27 @@
+@import "../sass/colors-and-sizes";
+
+.mat-form-field {
+  width: 100%;
+  margin: $medium-size 0;
+}
+.table-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+}
+
+.mat-table {
+  overflow: auto;
+  max-height: 500px;
+}
+
+.mat-row:hover {
+  background-color: $active-link-color;
+  cursor: pointer;
+}
+
+.product-image {
+  background-image: url("http://www.fullersfoodsplc.com/images/products/bakery/bread-buns.jpg");
+  background-repeat: no-repeat;
+  background-size: 150px auto;
+}

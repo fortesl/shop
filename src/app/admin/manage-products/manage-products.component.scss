@@ -1,16 +1,6 @@
-@import "../../sass/_colors-and-sizes";
-
-mat-form-field {
-  width: 100%;
-  margin: $medium-size 0;
-}
-.table-container {
+.details-mode {
   display: flex;
-  flex-direction: column;
-  min-width: 300px;
-}
-
-mat-table {
-  overflow: auto;
-  max-height: 350px;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
 }

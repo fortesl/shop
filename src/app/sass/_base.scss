@@ -1,3 +1,8 @@
+* {
+  box-sizing: border-box;
+}
+
+
 body {
   font-family: Helvetica, Arial, sans-serif; //Helvetica. Fall back to Arial or sans-serif.
   font-size: 1.6rem; // 16px browser default
@@ -11,4 +16,8 @@ body {
 
 html {
   font-size: 62.5%; // set 1em = 10px. use base 10 values for ems.
+}
+
+button:hover {
+  cursor: pointer;
 }

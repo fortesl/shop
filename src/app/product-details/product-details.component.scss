@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column nowrap;
+}
+.container > div
+{
+  padding: 0.5rem 0;
+  font-size: 4vw;
+  font-weight: 700;
+}
+
+.container > div > img {
+  width: 100%;
+  height: auto;
+}

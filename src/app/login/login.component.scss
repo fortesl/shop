@@ -1,6 +1,12 @@
 @import "../sass/colors-and-sizes";
+
+.loginWithGoogle {
+  display: flex;
+  height: $large-size;
+  justify-content: center;
+  align-items: center;
+}
 .mat-raised-button {
-  margin-top: $xlarge-size;
   background-color: $blue-background-color;
   color: $while-text-color;
   padding: $small-size $medium-size;
