@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../common/services/auth.service';
-import { CurrentRouteService } from '../common/services/current-route.service';
 
 @Component({
   selector: 'app-login',
@@ -9,8 +8,7 @@ import { CurrentRouteService } from '../common/services/current-route.service';
 })
 export class LoginComponent {
 
-  constructor(private auth: AuthService, currentRoute: CurrentRouteService) {
-    currentRoute.url = location.pathname;
+  constructor(private auth: AuthService) {
   }
 
   loginWithGoogle() {

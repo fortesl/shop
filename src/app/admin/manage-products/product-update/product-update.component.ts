@@ -23,7 +23,6 @@ export class ProductUpdateComponent implements OnInit {
   ngOnInit() {
     let title = '', imageUrl = '', price = 0;
     if (this.displayMode.product) {
-      this.productService.currentProduct = this.displayMode.product;
       title = this.displayMode.product.title;
       price = this.displayMode.product.price;
       imageUrl = this.displayMode.product.imageUrl;
@@ -45,15 +44,30 @@ export class ProductUpdateComponent implements OnInit {
     });
   }
 
+  get title() {
+    return this.form.get('title');
+  }
+
+  get price() {
+    return this.form.get('price');
+  }
+
+  get imageUrl() {
+    return this.form.get('imageUrl');
+  }
+
 submit(product: Product) {
   if (this.displayMode.mode === DisplayModes.Add) {
-    product = this.productService.addProduct(product);
+    this.productService.addProduct(product)
+    .then(saved => {
+      this.update.emit();
+    });
   } else {
-    product.id = this.displayMode.product.id;
-    product = this.productService.editProduct(product);
+    this.productService.updateProduct(this.displayMode.product.id, product)
+    .then(updated => {
+      this.update.emit();
+    });
   }
-  this.update.emit();
-  this.router.navigate(['/products', product.id]);
 }
 
 delete(event: Event) {

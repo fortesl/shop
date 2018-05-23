@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavItem } from './nav-item';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { AuthService } from '../common/services/auth.service';
 import { CurrentRouteService } from '../common/services/current-route.service';
 
@@ -9,8 +9,15 @@ import { CurrentRouteService } from '../common/services/current-route.service';
   templateUrl: './navigation-bar.component.html',
   styleUrls: ['./navigation-bar.component.scss']
 })
-export class NavigationBarComponent implements OnInit {
-  constructor(private router: Router, private currentRoute: CurrentRouteService, public auth: AuthService) {
+export class NavigationBarComponent {
+  constructor(private router: Router, currentRoute: CurrentRouteService, public auth: AuthService) {
+    router.events
+      .subscribe(event => {
+        if (event instanceof NavigationEnd) {
+          currentRoute.url = event.url;
+          this.setUserMenuSelection(event.url);
+        }
+      });
   }
 
   userMenuSelection: NavItem;
@@ -37,14 +44,10 @@ export class NavigationBarComponent implements OnInit {
     path: ['/login']
   };
 
-  ngOnInit() {
-    this.currentRoute.currentUrl$
-    .subscribe(url => {
-      this.currentUrl = url;
+  private setUserMenuSelection(currentUrl: string) {
       this.userMenuSelection = this.loggedInUserMenu.items.find(item => {
-        return item.path.includes(url);
+        return item.path.includes(currentUrl);
       });
-    });
   }
 
   login() {

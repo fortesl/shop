@@ -1,4 +1,4 @@
-<h2 *ngIf="currentUrl === '/products'">
+<h2 *ngIf="currentRoute.url === '/products'">
   Product List
 </h2>
 <mat-form-field>
@@ -9,7 +9,7 @@
     <ng-container matColumnDef="image">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let row">
-        <img [src]="row.imageUrl" width="150" height="auto">
+        <img [src]="row.imageUrl" width="160" height="auto">
       </mat-cell>
     </ng-container>
 
@@ -26,7 +26,8 @@
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row
       (click)="edit(row)"
-      *matRowDef="let row; columns: displayedColumns;">
+      [ngClass]="{highlight: isOdd}"
+      *matRowDef="let row; columns: displayedColumns; let isOdd = odd">
     </mat-row>
   </mat-table>
 </div>

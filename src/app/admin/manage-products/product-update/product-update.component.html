@@ -1,35 +1,45 @@
-<form [formGroup]="form" (ngSubmit)="submit(form.value)">
-  <div class="form-inputs" formGroupModel>
-    <mat-form-field>
-      <input
-        formControlName="title"
-        matInput placeholder="Product Title">
-    </mat-form-field>
-    <mat-form-field>
-      <input
-        formControlName="price"
-        matInput placeholder="Product Price">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput
-        formControlName="imageUrl"
-        placeholder="Product Image">
-    </mat-form-field>
+<div class="update">
+  <form [formGroup]="form" (ngSubmit)="submit(form.value)">
+    <div class="form-inputs" formGroupModel>
+      <mat-form-field>
+        <input
+          formControlName="title"
+          matInput placeholder="Product Title">
+      </mat-form-field>
+      <mat-form-field>
+        <span matPrefix>$ &nbsp;</span>
+        <input
+          formControlName="price"
+          matInput placeholder="Product Price">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput
+          formControlName="imageUrl"
+          placeholder="Product Image">
+      </mat-form-field>
+    </div>
+    <div class="form-buttons">
+      <button
+        type="submit"
+        color="primary"
+        [disabled]=" form.pristine || form.invalid"
+        mat-raised-button>{{displayMode.mode === 1 ? 'Update' : 'Add'}}
+      </button>
+      <button
+        *ngIf="displayMode.mode === 1"
+        (click)="delete($event)"
+        color="warn"
+        mat-raised-button>Delete</button>
+      <button
+        (click)="cancel($event)"
+        mat-raised-button>Cancel</button>
+    </div>
+  </form>
+  <div class="card" *ngIf="imageUrl.value">
+    <img [src]="imageUrl.value" width="350" height="auto">
+    <div class="card-text">
+        <h4>{{ title.value }}</h4>
+        <h4>{{ price.value | currency }}</h4>
+    </div>
   </div>
-  <div class="form-buttons">
-    <button
-      type="submit"
-      color="primary"
-      [disabled]=" form.untouched || form.invalid"
-      mat-raised-button>{{displayMode.mode === 1 ? 'Update' : 'Add'}}
-    </button>
-    <button
-      *ngIf="displayMode.mode === 1"
-      (click)="delete($event)"
-      color="warn"
-      mat-raised-button>Delete</button>
-    <button
-      (click)="cancel($event)"
-      mat-raised-button>Cancel</button>
-  </div>
-</form>
+</div>

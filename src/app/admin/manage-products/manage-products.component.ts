@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { CurrentRouteService } from '../../common/services/current-route.service';
 import { Product, DisplayMode, DisplayModes } from '../../models/product';
 import { ProductService } from '../../common/services/product.service';
 
@@ -11,12 +10,7 @@ import { ProductService } from '../../common/services/product.service';
 export class ManageProductsComponent {
   displayMode: DisplayMode = {mode: DisplayModes.List, product: null};
 
-  constructor(currentRoute: CurrentRouteService, public productService: ProductService) {
-    currentRoute.url = location.pathname;
-    if (!productService.products) {
-      productService.loadProducts();
-    }
-  }
+  constructor(public productService: ProductService) {}
 
   add() {
     this.displayMode.mode = DisplayModes.Add;

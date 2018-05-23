@@ -1,67 +1,47 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../../models/product';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { Observable } from 'rxjs/Observable';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class ProductService {
+  constructor(private db: AngularFireDatabase) {
+    this._productsRef = this.db.list('products');
+    this._products$ = this._productsRef.snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c => ({ id: c.payload.key, ...c.payload.val() }))
+      )
+    );
+   }
+  private _products$: Observable<Product[]>;
+  private _productsRef: AngularFireList<Product>;
 
-  constructor() { }
-
-  private _products: Product[];
-  private _productsDbName = '/products/';
-
-  loadProducts() {
-    this._products = [];
-    for (let i = 1; i <= 100; i++) { this.products.push(createNewProduct(i)); }
+  get products$(): Observable<Product[]> {
+    return this._products$;
   }
 
-  get products(): Product[] {
-    return this._products;
+  addProduct(product: Product) {
+    return this._productsRef.push(product);
   }
 
-  getProduct(id: string): Product {
-    if (!this._products) {
-      this.loadProducts();
-    }
-    const idx = this._products.findIndex(item => item.id === id);
-    return this._products[idx];
-  }
-
-  addProduct(product: Product): Product {
-    if (product) {
-      product.id = (this._products.length + 1).toString();
-      this._products.unshift(product);
+  updateProduct(id: string, product: Product): Promise<Product> {
+    return this._productsRef.update(id, product)
+    .then(updated => {
+      product.id = id;
       return product;
-    }
-  }
-
-  editProduct(product: Product): Product {
-    const idx = this._products.findIndex(item => item.id === product.id);
-    this._products.unshift(product);
-    this._products.splice(idx + 1, 1);
-    return product;
+    });
   }
 
   deleteProduct(id: string) {
-    const idx = this._products.findIndex(item => item.id === id);
-    this._products.splice(idx, 1);
+    return this._productsRef.remove(id);
   }
 
+  getProduct(id: string): Observable<Product> {
+    return this.db.object('/products/' + id).valueChanges() as Observable<Product>;
+  }
+
+  deleteAll() {
+    return this._productsRef.remove();
+  }
 }
-
-/** Builds and returns a new product. */
-function createNewProduct(id: number): Product {
-  const name =
-      NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
-      NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.';
-
-  return {
-    id: id.toString(),
-    imageUrl: 'http://www.fullersfoodsplc.com/images/products/bakery/bread-buns.jpg',
-    title: name,
-    price: Math.random() * 5000
-  };
-}
-
-const NAMES = ['Maia', 'Asher', 'Olivia', 'Atticus', 'Amelia', 'Jack',
-  'Charlotte', 'Theodore', 'Isla', 'Oliver', 'Isabella', 'Jasper',
-  'Cora', 'Levi', 'Violet', 'Arthur', 'Mia', 'Thomas', 'Elizabeth'];

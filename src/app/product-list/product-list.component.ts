@@ -1,37 +1,39 @@
-import { Component, ViewChild, AfterViewInit, Output, EventEmitter } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import { Product, DisplayMode, DisplayModes } from '../models/product';
 import { ProductService } from '../common/services/product.service';
 import { CurrentRouteService } from '../common/services/current-route.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-product-list',
   styleUrls: ['./product-list.component.scss'],
   templateUrl: './product-list.component.html',
 })
-export class ProductListComponent implements AfterViewInit {
+export class ProductListComponent implements OnInit, OnDestroy {
   displayedColumns = ['image', 'title', 'price'];
   dataSource: MatTableDataSource<Product>;
   @Output() update = new EventEmitter<DisplayMode>();
-  currentUrl: string;
+  _subscription: Subscription;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(productService: ProductService, currentRoute: CurrentRouteService, private router: Router) {
-    currentRoute.url = location.pathname;
-    this.currentUrl = location.pathname;
-    if (!productService.products) {
-      productService.loadProducts();
-    }
-
-    this.dataSource = new MatTableDataSource(productService.products);
+  constructor(private productService: ProductService, public currentRoute: CurrentRouteService, private router: Router) {
   }
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+  ngOnInit(): void {
+    this._subscription = this.productService.products$
+      .subscribe(products => {
+        this.dataSource = new MatTableDataSource(products);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+    });
+  }
+
+  ngOnDestroy(): void {
+    this._subscription.unsubscribe();
   }
 
   applyFilter(filterValue: string) {
@@ -41,7 +43,7 @@ export class ProductListComponent implements AfterViewInit {
   }
 
   edit(product: Product) {
-    if (this.currentUrl === '/products') {
+    if (this.currentRoute.url === '/products') {
       this.router.navigate(['/products', product.id]);
     } else {
       const displayMode: DisplayMode = {

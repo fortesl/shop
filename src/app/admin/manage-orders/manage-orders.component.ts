@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CurrentRouteService } from '../../common/services/current-route.service';
 
 @Component({
   selector: 'app-manage-orders',
@@ -8,9 +7,7 @@ import { CurrentRouteService } from '../../common/services/current-route.service
 })
 export class ManageOrdersComponent implements OnInit {
 
-  constructor(currentRoute: CurrentRouteService) {
-    currentRoute.url = location.pathname;
-  }
+  constructor() { }
 
   ngOnInit() {
   }

@@ -20,8 +20,6 @@
   cursor: pointer;
 }
 
-.product-image {
-  background-image: url("http://www.fullersfoodsplc.com/images/products/bakery/bread-buns.jpg");
-  background-repeat: no-repeat;
-  background-size: 150px auto;
+.highlight {
+  background-color: lighten( $active-link-color, 13% );
 }

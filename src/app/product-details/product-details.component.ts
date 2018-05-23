@@ -1,24 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Product } from '../models/product';
 import { ProductService } from '../common/services/product.service';
 import { ActivatedRoute } from '@angular/router';
-import { CurrentRouteService } from '../common/services/current-route.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.scss']
 })
-export class ProductDetailsComponent implements OnInit {
+export class ProductDetailsComponent implements OnInit, OnDestroy {
 
-  constructor(private productService: ProductService, private route: ActivatedRoute, currentRoute: CurrentRouteService) {
-    currentRoute.url = location.pathname;
-  }
+  constructor(private productService: ProductService, private route: ActivatedRoute) { }
 
   product: Product;
+  private _subscription: Subscription;
 
   ngOnInit() {
-    this.product = this.productService.getProduct(this.route.snapshot.params['id']);
+    this._subscription = this.productService.getProduct(this.route.snapshot.params['id'])
+      .subscribe(product => this.product = product);
+  }
+
+  ngOnDestroy() {
+    this._subscription.unsubscribe();
   }
 
 }
