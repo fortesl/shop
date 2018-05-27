@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from '../../../common/services/product.service';
 import { CurrencyPipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { CategoryService } from '../../../common/services/category.service';
 
 @Component({
   selector: 'app-product-update',
@@ -15,21 +16,24 @@ export class ProductUpdateComponent implements OnInit {
   constructor(private builder: FormBuilder,
     private currency: CurrencyPipe,
     private router: Router,
-    private productService: ProductService) { }
+    public categories: CategoryService,
+    private productService: ProductService) {}
   form: FormGroup;
   @Input() displayMode: DisplayMode;
   @Output() update = new EventEmitter();
 
   ngOnInit() {
-    let title = '', imageUrl = '', price = 0;
+    let title = '', imageUrl = '', price = 0, category = '';
     if (this.displayMode.product) {
       title = this.displayMode.product.title;
       price = this.displayMode.product.price;
       imageUrl = this.displayMode.product.imageUrl;
+      category = this.displayMode.product.category;
     }
 
     this.form = this.builder.group({
-      title: [title || '', [
+      category: [category, Validators.required],
+      title: [title, [
         Validators.required,
         Validators.minLength(2)]
       ],
@@ -37,7 +41,7 @@ export class ProductUpdateComponent implements OnInit {
         Validators.required,
         Validators.pattern('[0-9.]*')
       ]],
-      imageUrl: [imageUrl || '', [
+      imageUrl: [imageUrl, [
         Validators.required,
         Validators.minLength(5)]
       ]
@@ -50,6 +54,10 @@ export class ProductUpdateComponent implements OnInit {
 
   get price() {
     return this.form.get('price');
+  }
+
+  get category() {
+    return this.form.get('category');
   }
 
   get imageUrl() {

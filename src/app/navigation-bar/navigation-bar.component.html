@@ -21,7 +21,7 @@
     <button
       (click)="login()"
       mat-button
-      [ngClass]="{'active-nav-link': currentUrl === '/login'}"
+      [ngClass]="{'active-nav-link': currentRoute.url === '/login'}"
     >
       {{ loggedOutUserMenu.label }}
     </button>

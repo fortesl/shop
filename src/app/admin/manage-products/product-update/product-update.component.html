@@ -2,6 +2,15 @@
   <form [formGroup]="form" (ngSubmit)="submit(form.value)">
     <div class="form-inputs" formGroupModel>
       <mat-form-field>
+        <mat-select
+          formControlName="category"
+          placeholder="Category">
+          <mat-option *ngFor="let category of categories.categories$ | async" [value]="category.name">
+            {{ category.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
         <input
           formControlName="title"
           matInput placeholder="Product Title">

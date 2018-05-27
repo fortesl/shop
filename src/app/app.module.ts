@@ -33,6 +33,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductService } from './common/services/product.service';
 import { CurrencyPipe } from '@angular/common';
+import { CategoryService } from './common/services/category.service';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { CurrencyPipe } from '@angular/common';
     AdminAuthGuard,
     CurrentRouteService,
     ProductService,
-    CurrencyPipe
+    CurrencyPipe,
+    CategoryService
   ],
   bootstrap: [AppComponent]
 })

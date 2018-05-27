@@ -3,6 +3,7 @@ export interface Product {
   imageUrl: string;
   title: string;
   price: number;
+  category: string;
 }
 
 export enum DisplayModes {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Product, DisplayMode, DisplayModes } from '../../models/product';
+import { DisplayMode, DisplayModes } from '../../models/product';
 import { ProductService } from '../../common/services/product.service';
 
 @Component({

@@ -21,7 +21,6 @@ export class NavigationBarComponent {
   }
 
   userMenuSelection: NavItem;
-  currentUrl: string;
 
   navLinks = [
     { label: 'Home', path: ['/'], icon: 'home' },
